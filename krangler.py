@@ -74,11 +74,14 @@ def replace_node(modified_tree, original_tree, node_id, replace_id):
             replace_end = 3
         for replace_idx, line_idx in enumerate(range(node_start, node_start+replace_end-replace_start)):
             if 'ascendancyName' in replace_lines[replace_idx]:
-                modified_tree.insert(line_idx, ascendancy_line)
+                try:
+                    modified_tree.insert(line_idx, ascendancy_line)
+                except:
+                    print('error: node '+str(node_id)+'; replace: '+str(replace_id))
             else:
                 modified_tree.insert(line_idx, replace_lines[replace_idx])
     else:
-        print('node or replacement not found, returning original tree')
+        print('node '+str(node_id)+' or replacement '+str(replace_id)+' not found, returning original tree')
     return modified_tree
 
 def get_node_by_id(tree, node_id):
